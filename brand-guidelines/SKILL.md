@@ -1,16 +1,16 @@
 ---
 name: brand-guidelines
-description: Use this skill when the user asks to apply Anythoughts Intelligence Limited's brand colors, typography, or visual style to any artifact — documents, presentations, web pages, diagrams, or marketing materials. Also use when the user mentions "brand guidelines", "brand colors", "brand styling", "corporate identity", "visual formatting", "on-brand", "Anythoughts style", or requests output that should reflect the company's look-and-feel.
+description: Use this skill when the user asks to apply Anycompany's brand colors, typography, or visual style to any artifact — documents, presentations, web pages, diagrams, or marketing materials. Also use when the user mentions "brand guidelines", "brand colors", "brand styling", "corporate identity", "visual formatting", "on-brand", "Anythoughts style", or requests output that should reflect the company's look-and-feel.
 license: MIT
 compatibility: opencode
 metadata:
-  brand: Anythoughts Intelligence Limited
+  brand: Anycompany
   audience: developers
 ---
 
 ## What I Do
 
-I provide Anythoughts Intelligence Limited's official brand identity — colors, typography, and visual style rules — so the agent can apply them consistently to any artifact.
+I provide Anycompany's official brand identity — colors, typography, and visual style rules — so the agent can apply them consistently to any artifact.
 
 ## When to Use Me
 
