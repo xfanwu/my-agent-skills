@@ -1,6 +1,6 @@
 ---
 name: brand-guidelines
-description: Use this skill when the user asks to apply Anycompany's brand colors, typography, or visual style to any artifact — documents, presentations, web pages, diagrams, or marketing materials. Also use when the user mentions "brand guidelines", "brand colors", "brand styling", "corporate identity", "visual formatting", "on-brand", "Anythoughts style", or requests output that should reflect the company's look-and-feel.
+description: Use this skill when the user asks to apply Anycompany's brand colors, typography, or visual style to any artifact — documents, presentations, web pages, diagrams, or marketing materials. Also use when the user mentions "brand guidelines", "brand colors", "brand styling", "corporate identity", "visual formatting", "on-brand", "Anycompany style", or requests output that should reflect the company's look-and-feel.
 license: MIT
 compatibility: opencode
 metadata:
@@ -14,10 +14,10 @@ I provide Anycompany's official brand identity — colors, typography, and visua
 
 ## When to Use Me
 
-- User asks for output in Anythoughts brand style
+- User asks for output in Anycompany brand style
 - User mentions brand colors, brand guidelines, or corporate identity
 - User is creating presentations, documents, diagrams, or web pages for the company
-- User says "on-brand", "our colors", "Anythoughts style", "match our branding"
+- User says "on-brand", "our colors", "Anycompany style", "match our branding"
 
 ---
 
