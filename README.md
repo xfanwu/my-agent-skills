@@ -6,4 +6,5 @@ A collection of daily-use agent skills.
 
 | Skill | Description |
 |-------|-------------|
+| [create-skill](./create-skill/) | Guide for creating new agent skills — covers structure, naming, YAML frontmatter, and best practices per the Agent Skills standard |
 | [learn-xy](./learn-xy/) | Systematically understand any new phenomenon by analyzing its historical trajectory (X-axis) and current competitive position (Y-axis) |
