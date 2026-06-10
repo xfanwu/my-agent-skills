@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# xAI Search Script
-# Calls https://api.x.ai/v1/responses with search_parameters
+# xAI Search Script (Tools API)
+# Calls https://api.x.ai/v1/responses with tools (web_search / x_search)
 # Usage: ./search.sh <web|x> <query> [model]
 
 usage() {
     echo "Usage: $0 <web|x> <query> [model]"
     echo ""
-    echo "  web     Web search (sources: [\"web\"])"
-    echo "  x       X/Twitter search (sources: [\"x\"])"
+    echo "  web     Web search (tool: web_search)"
+    echo "  x       X/Twitter search (tool: x_search)"
     echo "  query   Search query (wrap in quotes)"
     echo "  model   Optional model (default: grok-4-1-fast-non-reasoning)"
     exit 1
@@ -35,26 +35,22 @@ if [ -z "${XAI_API_KEY:-}" ]; then
     exit 1
 fi
 
-# Map search type to sources array value
+# Map search type to tool name
 if [ "${SEARCH_TYPE}" = "web" ]; then
-    SOURCES='["web"]'
+    TOOL_TYPE="web_search"
 else
-    SOURCES='["x"]'
+    TOOL_TYPE="x_search"
 fi
 
-# Build JSON payload (API docs: POST /v1/responses)
+# Build JSON payload using the Tools API
 PAYLOAD=$(jq -n \
     --arg model "$MODEL" \
     --arg query "$QUERY" \
-    --argjson sources "$SOURCES" \
+    --arg tool_type "$TOOL_TYPE" \
     '{
         model: $model,
-        input: $query,
-        search_parameters: {
-            mode: "on",
-            return_citations: true,
-            sources: $sources
-        }
+        input: [{ role: "user", content: $query }],
+        tools: [{ type: $tool_type }]
     }')
 
 # Call xAI API (30s timeout)
@@ -68,21 +64,30 @@ RESPONSE=$(curl -s --max-time 30 \
 }
 
 # Check for API error
-ERROR_MSG=$(echo "$RESPONSE" | jq -r '.error.message // .error // empty' 2>/dev/null)
+ERROR_MSG=$(echo "$RESPONSE" | jq -r '.error // empty' 2>/dev/null)
 if [ -n "$ERROR_MSG" ]; then
     echo "API Error: $ERROR_MSG"
     exit 1
 fi
 
-# Extract content (model's text response)
-echo "$RESPONSE" | jq -r '.content // empty' 2>/dev/null || true
+# Extract final message text (last output item of type "message")
+TEXT=$(echo "$RESPONSE" | jq -r '
+    .output | map(select(.type == "message")) | last |
+    .content | map(select(.type == "output_text")) | last |
+    .text // empty
+' 2>/dev/null)
 
-# Extract citations if present
+if [ -n "$TEXT" ]; then
+    echo "$TEXT"
+fi
+
+# Extract citations from annotations on the final message
 CITATIONS=$(echo "$RESPONSE" | jq -r '
-    .reasoning.citations // .citations // empty |
-    if type == "array" then
-        map("[\(.id // .index)] \(.url // .link // empty)") | join("\n")
-    else empty end
+    .output | map(select(.type == "message")) | last |
+    .content | map(select(.type == "output_text")) | last |
+    .annotations // [] |
+    map(select(.type == "url_citation")) |
+    map("[\(.title // "?")] \(.url)") | join("\n")
 ' 2>/dev/null)
 
 if [ -n "$CITATIONS" ]; then
