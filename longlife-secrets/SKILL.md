@@ -8,7 +8,7 @@ description: Generates personalized daily meal suggestions adjusted for morning,
 Provide practical, evidence-based daily meal ideas and exercise plans grounded in mitochondrial biology, age-related nutritional changes, and longevity research.
 
 ## Core References
-Always ground recommendations in the synthesized science. Read `references/scientific-basis.md` for the full evidence summary covering mitochondria, exercise, diet and the New Scientist age-diet article.
+Always ground recommendations in the synthesized science. Read `references/scientific-basis.md` for the full evidence summary covering mitochondria, exercise, diet and the New Scientist age-diet article. For habit-level guidance (sleep, exercise, diet, psychology, learning, screening), read `references/verified-habits.md` — 30 habits with Crossref-verified citations and DOIs.
 
 ## When User Asks for Food Advice
 
